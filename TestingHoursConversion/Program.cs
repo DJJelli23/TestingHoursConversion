@@ -13,8 +13,19 @@ namespace TestingHoursConversion
             decimal currentHours;
             int daysInPayPeriod;
             int currentDaysInPayPeriod;
+            bool minOrFull = false;
 
             TotalAmountForPayPeriod yep = new TotalAmountForPayPeriod();
+
+            Console.WriteLine("Are you trying to get Full or Minimal hours?");
+            if(Console.ReadLine().ToLower() == "full")
+            {
+                minOrFull = true;
+            }
+            else if (Console.ReadLine().ToLower() == "minimal" || Console.ReadLine().ToLower() == "min")
+            {
+                minOrFull = false;
+            }
 
             Console.WriteLine("Enter the hours you currently have.");
             currentHours = Convert.ToDecimal(Console.ReadLine());
@@ -26,7 +37,7 @@ namespace TestingHoursConversion
             currentDaysInPayPeriod = Convert.ToInt16(Console.ReadLine());
 
             Console.Clear();
-            Console.WriteLine("Hours still needed on pay period: " + yep.ConvertDecimalToHours(yep.CalculatePayPeriodHoursNeeded(currentHours, daysInPayPeriod, currentDaysInPayPeriod)));
+            Console.WriteLine("Hours still needed on pay period: " + yep.ConvertDecimalToHours(yep.CalculatePayPeriodHoursNeeded(currentHours, daysInPayPeriod, currentDaysInPayPeriod, minOrFull)));
             Console.WriteLine("Hours still needed by the end of the day: " + yep.ConvertDecimalToHours(yep.CalculateDayHoursNeeded(currentHours, daysInPayPeriod, currentDaysInPayPeriod)));
             Console.Read();
         }

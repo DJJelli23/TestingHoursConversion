@@ -12,111 +12,214 @@ namespace TestingHoursConversion
         decimal hoursToday;
         decimal hoursNeededToday;
         decimal hoursNeededForPP;
+        bool fullHours_MinHours;
 
         decimal tempNeeded;
 
-        const decimal TOTALHOURSNEEDEDPP = 86.67m;
+        const decimal TOTALHOURSNEEDEDPPMINHOURS = 86.67m;
+        const decimal TOTALHOURSNEEDEDPPFULLHOURS = 88.00m;
 
-        decimal days12 = TOTALHOURSNEEDEDPP / 12;
-        decimal days11 = TOTALHOURSNEEDEDPP / 11;
-        decimal days10 = TOTALHOURSNEEDEDPP / 10;// 1 = 8.667, 2 = 17.334, 3 = 26.001, 4 = 34.668, 5 = 43.335, 6 = 52.002, 7 = 60.669, 8 = 69.336, 9 = 78.003, 10 = 86.67
+        decimal days12Min = TOTALHOURSNEEDEDPPMINHOURS / 12;
+        decimal days11Min = TOTALHOURSNEEDEDPPMINHOURS / 11;
+        decimal days10Min = TOTALHOURSNEEDEDPPMINHOURS / 10;// 1 = 8.667, 2 = 17.334, 3 = 26.001, 4 = 34.668, 5 = 43.335, 6 = 52.002, 7 = 60.669, 8 = 69.336, 9 = 78.003, 10 = 86.67
 
-        
+        decimal days12Full = TOTALHOURSNEEDEDPPFULLHOURS / 12;
+        decimal days11Full = TOTALHOURSNEEDEDPPFULLHOURS / 11;
+        decimal days10Full = TOTALHOURSNEEDEDPPFULLHOURS / 10;
 
-        public decimal CalculatePayPeriodHoursNeeded(decimal curHours, int dpp, int currentDays)
+        public decimal CalculatePayPeriodHoursNeeded(decimal curHours, int dpp, int currentDays, bool whichhours)
         {
-            if (dpp == 10)
+            fullHours_MinHours = whichhours;
+            if (!fullHours_MinHours)
             {
-                hoursNeededToday = days10 * currentDays;
-                if (hoursNeededToday < curHours)
+                if (dpp == 10)
                 {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days10);
+                    hoursNeededToday = days10Min * currentDays;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days10Min);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days10Min);
+                    }
                 }
-                else
+                else if (dpp == 11)
                 {
-                    hoursToday = hoursNeededToday - curHours;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days10);
+                    hoursNeededToday = days11Min * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days11Min);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days11Min);
+                    }
                 }
-            }
-            else if (dpp == 11)
-            {
-                hoursNeededToday = days11 * currentDays;
-                currentHours = curHours;
-                if (hoursNeededToday < curHours)
+                else if (dpp == 12)
                 {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days11);
+                    hoursNeededToday = days12Min * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days12Min);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days12Min);
+                    }
                 }
-                else
-                {
-                    hoursToday = hoursNeededToday - curHours;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days11);
-                }
-            }
-            else if (dpp == 12)
-            {
-                hoursNeededToday = days12 * currentDays;
-                currentHours = curHours;
-                if (hoursNeededToday < curHours)
-                {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days12);
-                }
-                else
-                {
-                    hoursToday = hoursNeededToday - curHours;
-                    tempNeeded = hoursToday + ((dpp - currentDays) * days12);
-                }
-            }
-            hoursNeededForPP = tempNeeded;
+                hoursNeededForPP = tempNeeded;
 
-            return hoursNeededForPP;
+                return hoursNeededForPP;
+            }
+            else
+            {
+                if (dpp == 10)
+                {
+                    hoursNeededToday = days10Full * currentDays;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days10Full);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days10Full);
+                    }
+                }
+                else if (dpp == 11)
+                {
+                    hoursNeededToday = days11Full * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days11Full);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days11Full);
+                    }
+                }
+                else if (dpp == 12)
+                {
+                    hoursNeededToday = days12Full * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days12Full);
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                        tempNeeded = hoursToday + ((dpp - currentDays) * days12Full);
+                    }
+                }
+                hoursNeededForPP = tempNeeded;
+
+                return hoursNeededForPP;
+            }
         }
 
         public decimal CalculateDayHoursNeeded(decimal curHours, int dpp, int currentDays)
         {
+            if (!fullHours_MinHours)
+            {
+                if (dpp == 10)
+                {
+                    hoursNeededToday = days10Min * currentDays;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
+                }
+                else if (dpp == 11)
+                {
+                    hoursNeededToday = days11Min * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
+                }
+                else if (dpp == 12)
+                {
+                    hoursNeededToday = days12Min * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
+                }
 
-            if (dpp == 10)
-            {
-                hoursNeededToday = days10 * currentDays;
-                if (hoursNeededToday < curHours)
-                {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
-                }
-                else
-                {
-                    hoursToday = hoursNeededToday - curHours;
-                }
+                return hoursToday;
             }
-            else if (dpp == 11)
+            else
             {
-                hoursNeededToday = days11 * currentDays;
-                currentHours = curHours;
-                if (hoursNeededToday < curHours)
+                if (dpp == 10)
                 {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    hoursNeededToday = days10Full * currentDays;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
                 }
-                else
+                else if (dpp == 11)
                 {
-                    hoursToday = hoursNeededToday - curHours;
+                    hoursNeededToday = days11Full * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
                 }
-            }
-            else if (dpp == 12)
-            {
-                hoursNeededToday = days12 * currentDays;
-                currentHours = curHours;
-                if (hoursNeededToday < curHours)
+                else if (dpp == 12)
                 {
-                    hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    hoursNeededToday = days12Full * currentDays;
+                    currentHours = curHours;
+                    if (hoursNeededToday < curHours)
+                    {
+                        hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+                    }
+                    else
+                    {
+                        hoursToday = hoursNeededToday - curHours;
+                    }
                 }
-                else
-                {
-                    hoursToday = hoursNeededToday - curHours;
-                }
-            }
 
-            return hoursToday;
+                return hoursToday;
+            }
         }
 
         public string ConvertDecimalToHours(decimal totalDec)
