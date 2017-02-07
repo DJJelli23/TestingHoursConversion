@@ -22,7 +22,7 @@ namespace TestingHoursConversion
             {
                 minOrFull = true;
             }
-            else if (Console.ReadLine().ToLower() == "minimal" || Console.ReadLine().ToLower() == "min")
+            else //if (Console.ReadLine().ToLower() == "minimal" || Console.ReadLine().ToLower() == "min")
             {
                 minOrFull = false;
             }
