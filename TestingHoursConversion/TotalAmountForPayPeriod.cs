@@ -22,17 +22,33 @@ namespace TestingHoursConversion
         decimal days12Min = TOTALHOURSNEEDEDPPMINHOURS / 12;
         decimal days11Min = TOTALHOURSNEEDEDPPMINHOURS / 11;
         decimal days10Min = TOTALHOURSNEEDEDPPMINHOURS / 10;// 1 = 8.667, 2 = 17.334, 3 = 26.001, 4 = 34.668, 5 = 43.335, 6 = 52.002, 7 = 60.669, 8 = 69.336, 9 = 78.003, 10 = 86.67
+		decimal days9Min = TOTALHOURSNEEDEDPPMINHOURS / 9;
 
         decimal days12Full = TOTALHOURSNEEDEDPPFULLHOURS / 12;
         decimal days11Full = TOTALHOURSNEEDEDPPFULLHOURS / 11;
         decimal days10Full = TOTALHOURSNEEDEDPPFULLHOURS / 10;
+		decimal days9Full = TOTALHOURSNEEDEDPPFULLHOURS / 9;
 
         public decimal CalculatePayPeriodHoursNeeded(decimal curHours, int dpp, int currentDays, bool whichhours)
         {
             fullHours_MinHours = whichhours;
             if (!fullHours_MinHours)
             {
-                if (dpp == 10)
+				if (dpp == 9)
+				{
+					hoursNeededToday = days9Min * currentDays;
+					if (hoursNeededToday < curHours)
+					{
+						hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+						tempNeeded = hoursToday + ((dpp - currentDays) * days9Min);
+					}
+					else
+					{
+						hoursToday = hoursNeededToday - curHours;
+						tempNeeded = hoursToday + ((dpp - currentDays) * days9Min);
+					}
+				}
+                else if (dpp == 10)
                 {
                     hoursNeededToday = days10Min * currentDays;
                     if (hoursNeededToday < curHours)
@@ -82,7 +98,21 @@ namespace TestingHoursConversion
             }
             else
             {
-                if (dpp == 10)
+				if (dpp == 9)
+				{
+					hoursNeededToday = days9Full * currentDays;
+					if (hoursNeededToday < curHours)
+					{
+						hoursToday = hoursNeededToday - curHours;//curHours - hoursNeededToday;
+						tempNeeded = hoursToday + ((dpp - currentDays) * days9Full);
+					}
+					else
+					{
+						hoursToday = hoursNeededToday - curHours;
+						tempNeeded = hoursToday + ((dpp - currentDays) * days9Full);
+					}
+				}
+				else if (dpp == 10)
                 {
                     hoursNeededToday = days10Full * currentDays;
                     if (hoursNeededToday < curHours)
